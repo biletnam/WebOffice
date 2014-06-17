@@ -1,0 +1,27 @@
+/*Activar Scroll en Sidebar Menu*/
+#feed .sidebar {
+  overflow-y: auto;
+}
+
+/*Colocar el Loading Globalmente*/
+.ui.segment.loading{
+	display: none;
+	margin: 0;
+	padding: 0;
+}
+.ui.dimmer.loading{
+	position: fixed;
+	border-radius: 0px !Important;
+}
+
+/*Color el Menu Por encima del lector de documentos.*/
+.ui.menu.fixed_buttom{
+  position: absolute; width: 100%; top: -1%;
+}
+
+.ui.menu.disabled{
+  display: none;
+}
+.ui.viewer.disabled{
+  display: none;
+}
