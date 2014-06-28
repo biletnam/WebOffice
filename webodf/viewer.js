@@ -252,44 +252,9 @@ function Viewer(viewerPlugin) {
             return;
         }
         location = decodeURIComponent(location)
-        /*url = location;
-        filename = url.replace(/^.*[\\\/]/, '');
-        document.title = filename;
-        document.getElementById('documentName').innerHTML = document.title;
-
-        viewerPlugin.onLoad = function () {
-            document.getElementById('pluginVersion').innerHTML = viewerPlugin.getPluginVersion();
-
-            isSlideshow = viewerPlugin.isSlideshow();
-            if (isSlideshow) {
-                // No padding for slideshows
-                canvasContainer.style.padding = 0;
-                // Show page nav controls only for presentations
-                pageSwitcher.style.visibility = 'visible';
-            } else {
-                // For text documents, show the zoom widget.
-                zoomWidget.style.visibility = 'visible';
-                // Only show the page switcher widget if the plugin supports page numbers
-                if (viewerPlugin.getPageInView) {
-                    pageSwitcher.style.visibility = 'visible';
-                }
-            }
-
-            initialized = true;
-            pages = getPages();
-            document.getElementById('numPages').innerHTML = 'of ' + pages.length;
-
-            self.showPage(1);
-
-            // Set default scale
-            parseScale(kDefaultScale);
-
-            canvasContainer.onscroll = onScroll;
-            delayedRefresh();
-        };
-
-        viewerPlugin.initialize(canvasContainer, location);*/
-        var storage = navigator.getDeviceStorage("sdcard");
+        
+        try {
+            var storage = navigator.getDeviceStorage("sdcard");
             var pdf_file = storage.get(location);
             pdf_file.onerror = function() {
                 console.error("Error in: ", pdf_file.error.name);
@@ -340,9 +305,49 @@ function Viewer(viewerPlugin) {
                 }
 
                 if (file) {
-                   reader.readAsDataURL(file);
+                    reader.readAsDataURL(file);
                 }
             };
+        }
+        catch(err) {
+            url = location;
+            filename = url.replace(/^.*[\\\/]/, '');
+            document.title = filename;
+            document.getElementById('documentName').innerHTML = document.title;
+
+            viewerPlugin.onLoad = function () {
+            document.getElementById('pluginVersion').innerHTML = viewerPlugin.getPluginVersion();
+
+            isSlideshow = viewerPlugin.isSlideshow();
+            if (isSlideshow) {
+                // No padding for slideshows
+                canvasContainer.style.padding = 0;
+                // Show page nav controls only for presentations
+                pageSwitcher.style.visibility = 'visible';
+            } else {
+                // For text documents, show the zoom widget.
+                zoomWidget.style.visibility = 'visible';
+                // Only show the page switcher widget if the plugin supports page numbers
+                if (viewerPlugin.getPageInView) {
+                    pageSwitcher.style.visibility = 'visible';
+                }
+            }
+
+            initialized = true;
+            pages = getPages();
+            document.getElementById('numPages').innerHTML = 'of ' + pages.length;
+
+            self.showPage(1);
+
+            // Set default scale
+            parseScale(kDefaultScale);
+
+            canvasContainer.onscroll = onScroll;
+            delayedRefresh();
+        };
+
+        viewerPlugin.initialize(canvasContainer, location);
+        }
     };
 
     /**

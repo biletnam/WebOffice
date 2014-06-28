@@ -4,24 +4,35 @@ $(document).ready(function(){
   find_msg = mozL10n.get('find_msg', null, 'Looking for results ...');
   type_doc = mozL10n.get('type_doc', null, 'Memory');
   result_cero = mozL10n.get('result_cero', null, 'No results were found.');
-  storage = navigator.getDeviceStorage("sdcard");
   
-  load();
+  try {
+    storage = navigator.getDeviceStorage("sdcard");
+    load();
 
     $('.ui.icon.button.refresh').click(function(){
-	    load();   
+      load();   
     });
+  }
+  catch(err) {
+    database = new WebOffice();
+    database.init("weboffice", 2);
+    $('#files').show();
+    $('#files').on('change', UploadFile);
+    $('.ui.icon.button.refresh').click(function(){
+      database.items();  
+    });
+  } 
 
-    $(".reply.mail.big.icon").click(function(){
-      $(".ui.inverted.menu_principal").show();
-      $(".ui.celled.grid.content").show();
-      $(".ui.celled.grid.viewer").hide();
-      $(".ui.celled.grid.viewer iframe").remove()
-      $(".ui.menu.fixed_buttom").hide();
-      $('.menu.sidebar._top')
-        .sidebar('hide')
-      ;
-    });
+  $(".reply.mail.big.icon").click(function(){
+    $(".ui.inverted.menu_principal").show();
+    $(".ui.celled.grid.content").show();
+    $(".ui.celled.grid.viewer").hide();
+    $(".ui.celled.grid.viewer iframe").remove()
+    $(".ui.menu.fixed_buttom").hide();
+    $('.menu.sidebar._top')
+      .sidebar('hide')
+    ;
+  });
     
 });
 

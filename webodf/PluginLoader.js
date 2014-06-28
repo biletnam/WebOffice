@@ -64,14 +64,21 @@ function loadDocument(documentUrl) {
         var extension = documentUrl.split('.').pop();
 
         switch (extension) {
-        case 'odt':
-        case 'odp':
-        case 'ods':
-        case 'fodt':
-            loadPlugin('./ODFViewerPlugin', function () {
-                Plugin = ODFViewerPlugin;
-            });
-            break;
+            case 'odt':
+            case 'odp':
+            case 'ods':
+            case 'fodt':
+                loadPlugin('./ODFViewerPlugin', function () {
+                    Plugin = ODFViewerPlugin;
+                });
+                break;
+            default:
+                extension = documentUrl.split(':')[0]
+                if (extension == '#blob' || extension == '#data'){
+                    loadPlugin('./ODFViewerPlugin', function () {
+                        Plugin = ODFViewerPlugin;
+                    });
+                }
         }
     }
 

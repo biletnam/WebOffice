@@ -26,6 +26,8 @@
   <script src="./js/load_language.js"></script>
   <script src="./js/l10n.js"></script>
   <script src="./js/contact_email.js"></script>
+  <script src="./js/files_db.js"></script>
+  <script src="./js/upload_file.js"></script>
   <script src="./js/list_document.js"></script>
 </head>
 <body id="feed">
@@ -154,6 +156,7 @@
         <a class="item" id="odp" data-tab="odp">ODP</a>
         <a class="item" id="ods" data-tab="ods">ODS</a>
       </div>
+      <input style="display:none;" type="file" id="files" name="files[]" multiple />
       <div class="ui divided inbox selection list active tab odt" data-tab="odt"></div>
       <div class="ui divided inbox selection list tab odp" data-tab="odp"></div>
       <div class="ui divided inbox selection list tab ods" data-tab="ods"></div>
