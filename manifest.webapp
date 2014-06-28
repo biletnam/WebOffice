@@ -17,7 +17,7 @@
   "description": "OpenDocument Reader for Firefox OS.",
   "type" : "privileged",
   "launch_path": "/index.html",
-  "version": "1.1",
+  "version": "1.2",
   "icons": {
   	"256": "/images/icon/256x256.png",
     "128": "/images/icon/128x128.png",
