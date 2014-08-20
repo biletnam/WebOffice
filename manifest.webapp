@@ -36,7 +36,9 @@
     "device-storage:sdcard": {
       "description" : "Pick a .odt, .ods, .odx file from the SD card.",
       "access": "readonly"
-    }
+    },
+    "browser": {},
+    "embed-apps": {}
   },
   "default_locale": "es"
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WebOffice">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,18 +108,21 @@
                             <img alt="" src="http://centaurus.adbee.technology/img/samples/scarlet-159.png">
                             <div class="user-box">
                                 <span class="name">
-                                    Welcome Scarlett 
+                                    Welcome {{ user.username }} 
                                 </span>
-                                <div class="btn-group profile-btns-group remove-left-sidebar">
+                                <div class="btn-group profile-btns-group remove-left-sidebar" ng-if="user.username">
                                     <a data-toggle="tab" href="#profile" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
                                     <a data-toggle="tab" href="#settings" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
                                     <a href="#" class="btn btn-profie-sidebar btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-group btn-group-justified remove-left-sidebar">
+                        <div class="btn-group btn-group-justified remove-left-sidebar" ng-if="!user.username">
                             <a class="btn btn-warning bord-not"  data-toggle="modal" href="#registre"><i class="fa fa-caret-square-o-right"></i> Registrarme</a>
                             <a class="btn btn-danger bord-not" data-toggle="modal" href="#login"><i class="fa fa-sign-in"></i> Login</a>
+                        </div>
+                        <div class="btn-group btn-group-justified remove-left-sidebar" ng-if="user.username" ng-controller='MainController'>
+                            <a class="btn btn-danger bord-not" data-toggle="modal" ng-click="logout()"><i class="fa fa-sign-in"></i> Logout</a>
                         </div>
                         <li class="remove-left-sidebar" data-toggle="tab" href="#home">
                             <a>
@@ -692,14 +695,14 @@
                         <!--right sidebar end-->
                         <!--right sidebar end-->
                         <!-- Modal LOGIN BTN-->
-                        <div class="modal fade " id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal fade " id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller='MainController'>
                             <div class="modal-dialog">
                                 <div class="modal-content modal-trans">
                                     <div class="center-modal">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <p><h2 class="text-center blanco ">Entra Ahora!</h2></p><br>
+                                        <p><h2 class="text-center blanco " >Entra Ahora!</h2></p><br>
                                         <div class="btn-group btn-group-justified">
-                                            <a class="btn btn-info google" href="#"><i class="fa fa-rocket"></i> Login FoxXapp</a>
+                                            <a class="btn btn-info google" ng-click="authorized()"><i class="fa fa-rocket"></i> Login FoxXapp</a>
                                         </div>
                                     </div>       
                                 </div>
@@ -728,10 +731,10 @@
                             <div class="modal-dialog" style="height: 100%;">
                                 <div class="modal-content bord-not full-url" style="height: 100%;">
                                     <header class="panel-heading">
-                                        <span id="url_name"></span>
+                                        <span class="url_name" id="url_name"></span>
                                         <span class="tools pull-right">
                                             <a class="fa fa-refresh fa-spin"></a>
-                                            <a href="javascript:;" data-dismiss="modal" class="fa fa-times"></a>
+                                            <a href="javascript:;" data-dismiss="modal" class="fa fa-times cancel"></a>
                                         </span>
                                     </header>
                                     <div class="modal-body" style="height: 100%; padding: 0px;"></div>
@@ -743,6 +746,8 @@
                  </section>
                  <!-- Placed js at the end of the document so the pages load faster -->
                  <!--Core js-->
+                 <script src="js/angular.js"></script>
+
                  <script src="main-app/js/jquery.js"></script>
                  <script src="main-app/bs3/js/bootstrap.min.js"></script>
                  <script src="main-app/js/jquery.scrollTo.min.js"></script>
@@ -751,9 +756,15 @@
                  <!--MAIN APP-->
                  <script src="main-app/js/scripts.js"></script>
                  
+                 <!--manejo de documentos-->
                  <script src="./js/l10n.js"></script>
                  <!--<script src="./js/files_db.js"></script>
                  <script src="./js/upload_file.js"></script>-->
                  <script src="./js/list_document.js"></script>
+
+                 <!--Logging-->
+                 <script src="src/app.js"></script>
+                 <script src="src/Auth.js"></script>
+                 <script src="js/oauth_window.js"></script>
              </body>
              </html>
