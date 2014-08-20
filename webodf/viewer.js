@@ -261,51 +261,106 @@ function Viewer(viewerPlugin) {
             };
             pdf_file.onsuccess = function(event) {
                 var file = pdf_file.result;
-                var reader  = new FileReader();
+                var ultimo = file.name.split("/").pop();
+                var formato = ultimo.split(".")[1]
+                if(formato == "docx" || formato == "pptx" || formato == "xlsx"){
+                try {
+                    convertoox2odf(file, function(content) {
+                      if (content == 'FILE_IS_TOO_BIG') {
+                        console.log('FILE_IS_TOO_BIG')
+                      } else if (content) {
+                        var url = {type: 4, files: content};
 
-                reader.onload = function () {
-                    url = reader.result;
-                    document.title = location;
-                    var ultimo = document.title.split("/").pop();
-                    var pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
-                    document.getElementById('documentName').innerHTML = pdf;
+                        viewerPlugin.onLoad = function () {
+                            document.getElementById('pluginVersion').innerHTML = viewerPlugin.getPluginVersion();
 
-                    viewerPlugin.onLoad = function () {
-                        document.getElementById('pluginVersion').innerHTML = viewerPlugin.getPluginVersion();
-
-                        isSlideshow = viewerPlugin.isSlideshow();
-                        if (isSlideshow) {
-                            // No padding for slideshows
-                            canvasContainer.style.padding = 0;
-                            // Show page nav controls only for presentations
-                            pageSwitcher.style.visibility = 'visible';
-                        } else {
-                            // For text documents, show the zoom widget.
-                            zoomWidget.style.visibility = 'visible';
-                            // Only show the page switcher widget if the plugin supports page numbers
-                            if (viewerPlugin.getPageInView) {
+                            isSlideshow = viewerPlugin.isSlideshow();
+                            if (isSlideshow) {
+                                // No padding for slideshows
+                                canvasContainer.style.padding = 0;
+                                // Show page nav controls only for presentations
                                 pageSwitcher.style.visibility = 'visible';
+                            } else {
+                                // For text documents, show the zoom widget.
+                                zoomWidget.style.visibility = 'visible';
+                                // Only show the page switcher widget if the plugin supports page numbers
+                                if (viewerPlugin.getPageInView) {
+                                    pageSwitcher.style.visibility = 'visible';
+                                }
                             }
-                        }
 
-                        initialized = true;
-                        pages = getPages();
-                        document.getElementById('numPages').innerHTML = 'of ' + pages.length;
+                            initialized = true;
+                            pages = getPages();
+                            document.getElementById('numPages').innerHTML = 'of ' + pages.length;
 
-                        self.showPage(1);
+                            self.showPage(1);
 
-                        // Set default scale
-                        parseScale(kDefaultScale);
+                            // Set default scale
+                            parseScale(kDefaultScale);
 
-                        canvasContainer.onscroll = onScroll;
-                        delayedRefresh();
-                    };
+                            canvasContainer.onscroll = onScroll;
+                            delayedRefresh();
+                        };
 
-                    viewerPlugin.initialize(canvasContainer, url);
-                }
+                        viewerPlugin.initialize(canvasContainer, url);
+                      } else {
+                        document.getElementById('dimmer').style.display = 'none';
+                        parent.document.getElementById('modal-loading').classList.add('hidden');
+                        window.alert(navigator.mozL10n.get('loading_failed'));
+                        goBack();
+                      }
+                    });
+                  } catch (e) {
+                    console.log('error de try');
+                  }
+                }else{
 
-                if (file) {
-                    reader.readAsDataURL(file);
+                    var reader  = new FileReader();
+
+                    reader.onload = function () {
+                        url = reader.result;
+                        document.title = location;
+                        var ultimo = document.title.split("/").pop();
+                        var pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
+                        document.getElementById('documentName').innerHTML = pdf;
+
+                        viewerPlugin.onLoad = function () {
+                            document.getElementById('pluginVersion').innerHTML = viewerPlugin.getPluginVersion();
+
+                            isSlideshow = viewerPlugin.isSlideshow();
+                            if (isSlideshow) {
+                                // No padding for slideshows
+                                canvasContainer.style.padding = 0;
+                                // Show page nav controls only for presentations
+                                pageSwitcher.style.visibility = 'visible';
+                            } else {
+                                // For text documents, show the zoom widget.
+                                zoomWidget.style.visibility = 'visible';
+                                // Only show the page switcher widget if the plugin supports page numbers
+                                if (viewerPlugin.getPageInView) {
+                                    pageSwitcher.style.visibility = 'visible';
+                                }
+                            }
+
+                            initialized = true;
+                            pages = getPages();
+                            document.getElementById('numPages').innerHTML = 'of ' + pages.length;
+
+                            self.showPage(1);
+
+                            // Set default scale
+                            parseScale(kDefaultScale);
+
+                            canvasContainer.onscroll = onScroll;
+                            delayedRefresh();
+                        };
+
+                        viewerPlugin.initialize(canvasContainer, url);
+                    }
+
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    } 
                 }
             };
         }

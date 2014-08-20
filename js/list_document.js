@@ -4,12 +4,19 @@ $(document).ready(function(){
   find_msg = mozL10n.get('find_msg', null, 'Looking for results ...');
   type_doc = mozL10n.get('type_doc', null, 'Memory');
   result_cero = mozL10n.get('result_cero', null, 'No results were found.');
-  
   try {
     storage = navigator.getDeviceStorage("sdcard");
-    load();
+    $('#top_menu ul li').click(function(e){
+      e.preventDefault()
+      type = $(this).find('a').attr('href').split('#')[1];
+      $('#loading').attr('type',type);
+      $(this).tab('show')
+      if ($('#'+type+' ul li').size() == 0){
+        load();
+      }
+    });
 
-    $('.ui.icon.button.refresh').click(function(){
+    $('#loading').click(function(){
       load();   
     });
   }
@@ -23,66 +30,48 @@ $(document).ready(function(){
     });
   } 
 
-  $(".reply.mail.big.icon").click(function(){
-    $(".ui.inverted.menu_principal").show();
-    $(".ui.celled.grid.content").show();
-    $(".ui.celled.grid.viewer").hide();
-    $(".ui.celled.grid.viewer iframe").remove()
-    $(".ui.menu.fixed_buttom").hide();
-    $('.menu.sidebar._top')
-      .sidebar('hide')
-    ;
-  });
-    
 });
 
 function load(){
-  $('.ui.inbox.list.active').html('<a id="Message" class="active item">'+find_msg+'</a>');
-  $('.ui.segment.loading').show();
-   
-  $('.ui.inbox.list.active.odt').html('');
-  $('.ui.inbox.list.odp').html('');
-  $('.ui.inbox.list.ods').html('');
-
+  $('#loading').addClass('fa-spin'); 
+  $('#'+type+' ul').html('');
+  $('#'+type+' ul').html(''+
+    '<li id="Message" class="list-group-item">'+
+      '<div class="media">'+
+        '<div class="media-body" style="text-align:center;">'+
+          '<div><a href="#">'+find_msg+'</a></div>'+
+        '</div>'+
+      '</div>'+
+    '</li>'
+  );
   var all_files = storage.enumerate();
   all_files.onsuccess = function() {
     while (this.result) {
       var file = this.result;
-      if (file.name.match(/.odt$/) || file.name.match(/.odp$/) || file.name.match(/.ods$/)) {
+      var re = new RegExp(type);
+      if (file.name.match(re)) {
         ultimo = file.name.split("/").pop();
         pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
         formato = ultimo.split(".")[1]
-        if(formato == "odt"){
-          $('.ui.inbox.list.active.odt').append(''+
-            '<a id="'+file.name+'" class="item ui pdf">'+
-              '<i class="icon large"><img class="ui image" src="./images/'+formato+'.png"></i>'+
-              '<div class="content">'+
-                '<div class="header">' + pdf + '</div>'+
-                file.name+
+          $('#'+formato+' ul').append(''+
+            '<li class="list-group-item">'+
+              '<div class="media">'+
+                '<div class="pull-left thumb-sm">'+
+                  '<a class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i> <i class="fa  fa-file-text fa-stack-1x fa-1x fa-inverse"></i></a>'+
+                '</div>'+
+                '<div class="pull-right text-success m-t-sm">'+
+                  '<div class="btn-group">'+
+                    '<a class="btn btn-default btn-xs" ><i class="fa fa-cloud-upload"></i></a>'+
+                    '<a class="btn btn-info btn-xs"><i class="fa fa-cloud-download"></i></a>'+
+                  '</div>'+
+                '</div>'+
+                '<div class="media-body">'+
+                  '<div><a href="#">' + pdf + '</a></div>'+
+                  '<small class="text-muted"><span class="badge bg-info url-sdcard">'+file.name+'</span></small>'+
+                '</div>'+
               '</div>'+
-            '</a>'
-          );
-        }else if(formato == "odp"){
-          $('.ui.inbox.list.odp').append(''+
-            '<a id="'+file.name+'" class="item ui pdf">'+
-              '<i class="icon large"><img class="ui image" src="./images/'+formato+'.png"></i>'+
-              '<div class="content">'+
-                '<div class="header">' + pdf + '</div>'+
-                file.name+
-              '</div>'+
-            '</a>'
-          );
-        }else if(formato == "ods"){          
-          $('.ui.inbox.list.ods').append(''+
-            '<a id="'+file.name+'" class="item ui pdf">'+
-              '<i class="icon large"><img class="ui image" src="./images/'+formato+'.png"></i>'+
-              '<div class="content">'+
-                '<div class="header">' + pdf + '</div>'+
-                file.name+
-              '</div>'+
-            '</a>'
-          );
-        }
+            '</li>'
+          );      
       }
 
       if (!this.done) {
@@ -92,38 +81,50 @@ function load(){
     }
     if (all_files.readyState != "pending"){
       $('#Message').remove(); 
-      if ($('.ui.inbox.list.odt a').size() == 0){
-        $('.ui.inbox.list.odt').html('<a id="Message" class="active item">'+result_cero+'</a>');
+      if ($('#'+type+' ul li').size() == 0){
+        $('#'+type+' ul').html(''+
+          '<li id="Message" class="list-group-item">'+
+            '<div class="media">'+
+              '<div class="media-body" style="text-align:center;">'+
+                '<div><a href="#">'+result_cero+'</a></div>'+
+              '</div>'+
+            '</div>'+
+          '</li>'
+        );
       }
-      if ($('.ui.inbox.list.odp a').size() == 0){
-        $('.ui.inbox.list.odp').html('<a id="Message" class="active item">'+result_cero+'</a>');
-      } 
-      if ($('.ui.inbox.list.ods a').size() == 0){
-        $('.ui.inbox.list.ods').html('<a id="Message" class="active item">'+result_cero+'</a>');
-      }
-      $('.ui.segment.loading').hide();
+      $('#loading').removeClass('fa-spin'); 
     }
-    $('.ui.inbox.list a').click(function(){
+    $('.media-body').click(function(){
       if ($(this).attr("id") != "Message"){
-        var fileName = $(this).attr("id");
-        var iframe = '<IFRAME id="iframe" SRC="./webodf/index.html#'+fileName+'" WIDTH=99.9% HEIGHT=100% FRAMEBORDER=1 scrolling="no"></IFRAME>';
-        $(".ui.inverted.menu_principal").hide();
-        $(".ui.celled.grid.content").hide();
-        $(".ui.celled.grid.viewer").show();
-        $(".ui.celled.grid.viewer").html(iframe);
-        $(".ui.menu.fixed_buttom").show();
+        var fileName = $(this).find('.text-muted span').html();
+        ultimo = fileName.split("/").pop();
+        pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
         formato = fileName.split(".")[1]
-        if (formato == "odp"){
-          $(".ui.celled.grid.viewer iframe").load(function(){
+        var iframe = '<IFRAME id="iframe" SRC="./webodf/index.html#'+fileName+'" WIDTH=99.9% HEIGHT=100% FRAMEBORDER=1 scrolling="no"></IFRAME>';
+        $('#url-externa').modal('show')
+        $('.modal-body').html(iframe);
+        $('#url_name').html(pdf)
+        $('#url-externa').on('hidden.bs.modal', function (e) {
+          $('.modal-body iframe').remove()
+        })
+        $(".modal-body iframe").load(function(){
+          $('.fa.fa-refresh').removeClass('fa-spin');
+          if (formato == "odp"){
             $(this).contents().find(".ui.dimmer.active").hide();
-          });
-        }
+          }
+        });
       }
-    });    
+    });  
   }
   all_files.onerror = function () {
-    $('.ui.inbox.list.active').html('<a id="Message" class="active item">'+result_cero+'</a>');
-    $('.ui.inbox.list.odp').html('<a id="Message" class="active item">'+result_cero+'</a>');
-    $('.ui.inbox.list.ods').html('<a id="Message" class="active item">'+result_cero+'</a>');
+    $('#'+type+' ul').html(''+
+      '<li id="Message" class="list-group-item">'+
+        '<div class="media">'+
+          '<div class="media-body" style="text-align:center;">'+
+            '<div><a href="#">'+result_cero+'</a></div>'+
+          '</div>'+
+        '</div>'+
+      '</li>'
+    );
   }
 }

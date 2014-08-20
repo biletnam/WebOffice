@@ -1,265 +1,759 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <!-- Standard Meta -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="google" content="notranslate">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="JDLA">
+    <link rel="shortcut icon" href="images/favicon.png">
 
-  <!-- Site Properities -->
-  <title>WebOffice - FoxXapp</title>
+    <title>WebOffice - FoxXapp</title>
 
-  <!--SEMANTIC.UI-->
-  <link rel="stylesheet" type="text/css" href="semantic.ui/css/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="css/base.css">
-  <link rel="resource" type="application/l10n" href="./locale/locale.properties"/> <!--Traducciones-->
+    <!--CSS -->
+    <link href="main-app/bs3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="main-app/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
+    <link href="main-app/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="main-app/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- MAIN APP -->
+    <link href="main-app/css/style.css" rel="stylesheet">
+    <link href="main-app/css/font.css" rel="stylesheet">
+    <link href="main-app/css/style-responsive.css" rel="stylesheet"/>
+    <link rel="resource" type="application/l10n" href="./locale/locale.properties"/>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery.address.js"></script>
-  <script src="semantic.ui/js/semantic.min.js"></script>
-  <!--************-->
-
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  
-  <script src="./js/feed.js"></script>
-  <script src="./js/load_language.js"></script>
-  <script src="./js/l10n.js"></script>
-  <script src="./js/contact_email.js"></script>
-  <script src="./js/files_db.js"></script>
-  <script src="./js/upload_file.js"></script>
-  <script src="./js/list_document.js"></script>
 </head>
-<body id="feed">
-  <!--Loading Global-->
-  <div class="ui segment loading">
-    <div class="ui dimmer loading active">
-      <div class="ui large text loader" data-l10n-id="loading_general">Loading...</div>
-    </div>
-  </div>
+<body>
+    <section id="container">
+        <!--header start-->
+        <header class="header fixed-top clearfix mobile-header">
+            <!--logo start-->
+            <div class="brand">
 
-  <!--Menu Principal-->
-  <div class="ui inverted menu_principal">
-    <div class="column">
-      <div class="ui large menu">
-        <a class="item">
-          <div class="ui basic icon button open_menu_left">
-            <i class="list large icon"></i>
-          </div>
-        </a>
-        <div class="right menu">
-          <a data-l10n-id="menu_help" class="item">
-              <i class="help large icon"></i> Help
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+                    <a class="logo">
+                    <h3 class="logo-text"> Web <i id="loading" class="fa fa-refresh"></i>ffice<h3>
+                    </a>
+                    <div href="#" class="sidebar-toggle-box">
+                        <div class="fa fa-bars"></div>
+                    </div>
+                    <div class="display-not">
+                        <div class="toggle-right-box">
+                            <div class="fa fa-bars"></div>
+                        </div>
+                    </div>
 
-  <!--Menu Sidebar del lado izquierdo-->
-  <div class="ui vertical sidebar menu _left">
-    <div class="item">
-        <div data-l10n-id="sign_up" class="ui teal button">Sign Up</div>
-        <div class="ui basic icon button floated right close_menu_left">
-            <i class="forward mail icon"></i>
-        </div>
-    </div>
-    <a data-l10n-id="menu_home" class="item">
-      <i class="active home icon"></i> Home
-    </a>
-    <div class="item">
-      <b data-l10n-id="lang">Languages</b>
-      <div class="menu">
-        <a data-l10n-id="lang_1" class="item lang en-US">English</a>
-        <a data-l10n-id="lang_2" class="item lang es">Spanish</a>
-        <a class="item"></a>
-        <!--<a data-l10n-id="lang_3" class="item lang pl hidden" style="display:none;">Portugues</a>
-        <a data-l10n-id="lang_4" class="item lang fr hidden" style="display:none;">French</a>
-        <a data-l10n-id="lang_5" class="item lang ar hidden" style="display:none;">Arabic</a>
-        <a data-l10n-id="text_bot_lang_ver_mas" class="item bot ver_mas" style="color:#00B5AD;">Show More...</a>
-        <a data-l10n-id="text_bot_lang_ocult_mas" class="item bot ocult_mas" style="color:#00B5AD;display:none;">Hide languages ​​...</a>-->
-      </div>
-    </div>
-    <a data-l10n-id="menu_contact" class="item open_menu_right">
-        <i class="mail icon"></i> Contact
-    </a>
-    <a data-l10n-id="menu_help" class="item">
-      <i class="help icon"></i> Help
-    </a>
-    <a href="javascript:void(0);" class="ui medium image foxxapp">
-      <img src="/images/logo_foxxapp.png">
-    </a>
-  </div>
+                </div>
+                <!--logo end-->
 
-  <!--Menu Sidebar del lado derecho-->
-  <div class="ui right vertical sidebar menu _right">
-    <div class="item">
-        <div class="ui basic icon button close_menu_right">
-            <i class="reply mail mail icon"></i>
-        </div>
-        <div data-l10n-id="contact_us" class="ui basic button floated right">Contact Us.</div>
-    </div>
-    <div class="item">
-      <div class="ui form">
-        <div class="field">
-          <label data-l10n-id="form_name">Name:</label>
-          <div class="ui icon input">
-            <i class="user icon"></i>
-            <input id="name" type="text" data-placeholder="Name">
-          </div>
-        </div>
-         <div class="field">
-          <label data-l10n-id="form_email">Email:</label>
-          <div class="ui icon input" style="display: block;">
-            <input id="email_contact" type="text" value="" required>
-            <div class="ui corner label">
-              <i class="asterisk icon"></i>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label data-l10n-id="form_message">Message:</label>
-          <textarea id="message"></textarea>
-        </div>
-       
-        <div data-l10n-id="form_send" class="ui black fluid button contact_form">Send</div>
-      </div>
-    </div>
-  </div>
+                <div class="nav notify-row" id="top_menu">
+                    <!--  TOOBARS-TIPOS DE ARCHIVOS -->
+                    <ul class="nav top-menu">
+                        <!-- ODS -->
+                        <li class="dropdown"><span class="badge bg-success badge-icon bord-not">ODS</span>
+                            <a class="li-badge bord-not" data-toggle="tab" href="#ods">
+                                <i class="fa fa-file-text-o"></i>
+                            </a>
+                        </li>
+                        <!-- ODP-->
+                        <li > <span class="badge bg-important badge-icon bord-not">ODP</span>
+                            <a class="li-badge bord-not" data-toggle="tab" href="#odp">
+                                <i class="fa fa-file-text-o"></i>
+                            </a>
+                        </li>
+                        <!-- ODT-->
+                        <li > <span class="badge bg-warning badge-icon bord-not">ODT</span>
+                            <a class="li-badge bord-not" data-toggle="tab" href="#odt">
+                                <i class="fa fa-file-text-o"></i>
+                            </a>
+                        </li>
+                        <!-- DOC-->
+                        <li > <span class="badge bg-info badge-icon bord-not">DOCX</span>
+                            <a  class="li-badge bord-not" data-toggle="tab" href="#docx">
+                                <i class="fa fa-file-word-o"></i> 
+                            </a>
+                        </li>
+                        <!-- PPSX-->
+                        <li > <span class="badge bg-danger ppsx">PPTX</span>
+                            <a class="li-badge bord-not" data-toggle="tab" href="#pptx">
+                                <i class="fa fa-file-powerpoint-o"></i>
+                            </a>
+                        </li>
+                        <!-- DOC-->
+                        <li > <span class="badge bg-primary  exel">XLSX</span>
+                            <a  class="li-badge bord-not" data-toggle="tab" href="#xlsx">
+                                <i class="fa fa-file-excel-o"></i> 
+                            </a>
+                        </li>
+                    </ul>
+                    <!--  TOOBARS-TIPOS DE ARCHIVOS FIN-->
+                </div>
+                <div class="top-nav clearfix">
+                    <!--search & user info start-->
+                    <ul class="nav pull-right top-menu">
+                        <li>
+                            <div class="toggle-right-box">
+                                <div class="fa fa-bars"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-  <!--Menu Sidebar del abajo-->
-  <div class="ui bottom sidebar menu _top">
-    <a class="item">
-      <div class="ui icon button close_menu_left">
-        <i class="large list icon"></i>
-      </div>
-    </a>
-    <div class="right menu">
-      <a data-l10n-id="menu_contact" class="item open_menu_right">
-          <i class="mail medium icon"></i> Contact
-      </a>
-    </div>
-  </div>
+            </header>
 
-  <!--Contenido Principal - listado de documentos-->
-  <div class="ui celled grid content">
-    <div class="middle column">
-      <div class="ui basic right floated icon button refresh">
-          <i class="refresh icon"></i> 
-      </div>
-      <h2 class="ui header">
-        <i class="inbox icon"></i>
-        WebOffice
-      </h2>
-      <div class="ui tabular filter menu">
-        <a class="active item" id="odt" data-tab="odt">ODT</a>
-        <a class="item" id="odp" data-tab="odp">ODP</a>
-        <a class="item" id="ods" data-tab="ods">ODS</a>
-      </div>
-      <input style="display:none;" type="file" id="files" name="files[]" multiple />
-      <div class="ui divided inbox selection list active tab odt" data-tab="odt"></div>
-      <div class="ui divided inbox selection list tab odp" data-tab="odp"></div>
-      <div class="ui divided inbox selection list tab ods" data-tab="ods"></div>
+            <!--//////////////eader end////////-->
 
-      <div class="ui divider"></div>
-    </div>
-  </div>
+            <aside>
+                <div id="sidebar" class="nav-collapse">
+                    <!-- sidebar menu start-->  <div class="leftside-navigation">
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <div id="user-left-box" class="clearfix ">
+                            <img alt="" src="http://centaurus.adbee.technology/img/samples/scarlet-159.png">
+                            <div class="user-box">
+                                <span class="name">
+                                    Welcome Scarlett 
+                                </span>
+                                <div class="btn-group profile-btns-group remove-left-sidebar">
+                                    <a data-toggle="tab" href="#profile" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+                                    <a data-toggle="tab" href="#settings" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
+                                    <a href="#" class="btn btn-profie-sidebar btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group btn-group-justified remove-left-sidebar">
+                            <a class="btn btn-warning bord-not"  data-toggle="modal" href="#registre"><i class="fa fa-caret-square-o-right"></i> Registrarme</a>
+                            <a class="btn btn-danger bord-not" data-toggle="modal" href="#login"><i class="fa fa-sign-in"></i> Login</a>
+                        </div>
+                        <li class="remove-left-sidebar" data-toggle="tab" href="#home">
+                            <a>
+                                <i class="fa fa-dashboard"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li class="remove-left-sidebar" data-toggle="modal" data-target="#url-externa">
+                            <a >
+                                <i class="fa fa-user"></i>
+                                <b></b>
+                                <span>URL-EXTERNAL</span>
+                            </a>
+                        </li>
 
-  <!--Menu fixed dentro del lector de documentos-->
-  <div class="ui secondary menu fixed_buttom disabled">
-    <a class="item">
-      <i class="reply mail big icon close_menu_top"></i>
-    </a>
-    <div class="right menu">
-      <a class="item">
-        <i class="big list icon top open_menu_top"></i>
-      </a>
-    </div>
-  </div>
-  <div class="ui error message hidden">
-    <i class="close icon error message"></i>
-      <div class="header">
-        <font><font data-l10n-id="error_search">Failed to Perform Search.</font></font>
-      </div>
-    <ul class="list">
-      <li><font><font></font></font></li>
-    </ul>
-  </div>
+                    </ul></div>        
+                    <!-- sidebar menu end-->
+                </div>
+            </aside>
+            <!--////////////////sidebar end///////////////-->
+            <!--/////////////////CONTENIDO DE TODO/////////////-->
+            <section id="main-content">
+                <section class="wrapper">    
+                    <div class="row row-not">
+                        <div class="col-sm-12 col-not">
+                            <section class="panel not-margin trans">
+                                <div  class="tab-content "><!-- ////////////////// INICIO-TAB ////////////////-->
 
-  <!--Caja donde se cargara el lector de documentos-->
-  <div class="ui celled grid viewer disabled" style="overflow:hidden"></div>
+                                    <div id="home" class="tab-pane panel-color active">
+                                        <div class="post-media">
+                                            <section class="panel bord-not terques-bg m-b-none">
+                                                <div class="carousel auto slide panel-body" id="c-fade">
+                                                    <ol class="carousel-indicators out">
+                                                        <li data-target="#c-fade" data-slide-to="0" class=""></li>
+                                                        <li data-target="#c-fade" data-slide-to="1" class=""></li>
+                                                        <li data-target="#c-fade" data-slide-to="2" class="active"></li>
+                                                    </ol>
+                                                    <div class="carousel-inner">
+                                                        <div class="item text-center active">
+                                                            <span class="h2"><i class="fa fa-mobile fa-5x m-t icon-muted"></i></span>
+                                                            <p class="text-carousel m-t m-b-lg">Mobile/Tablet/Desktop</p>
+                                                        </div>
+                                                        <div class="item text-center">
+                                                            <span class="h2"><i class="fa fa-file-o fa-5x m-t icon-muted"></i></span>
+                                                            <p class="text-carousel m-t m-b-lg">Todos los Documentos</p>
+                                                        </div>
+                                                        <div class="item text-center">
+                                                            <span class="h2"><i class="fa fa-clock-o fa-5x m-t icon-muted"></i></span>
+                                                            <p class="text-carousel m-t m-b-lg">Ahorra Tiempo</p>
+                                                        </div>
+                                                    </div>
+                                                    <a class="left carousel-control" href="#c-fade" data-slide="prev">
+                                                        <i class="fa fa-angle-left"></i>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#c-fade" data-slide="next">
+                                                        <i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                </div>
+                                            </section>
+                                        </div> 
+                                        <div class="bg-white-only">
+                                            <div class="container">
+                                                <div class="m-t-xl m-b-xl">
+                                                    <h3 class="font-thin text-center">3 motivos para usar <b>WebOffice</b></h3>
+                                                </div>
+                                                <div class="row m-b-xl">
+                                                    <div class="col-sm-4 fadeInLeft animated" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
+                                                        <span class="fa-stack fa-2x pull-left m-r m-t-xs">
+                                                            <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                            <i class="fa fa-stack-1x fa-inverse">1</i>
+                                                        </span>
+                                                        <div class="clear">
+                                                            <h4>Todo desde un solo Lugar</h4>
+                                                            <p class="text-muted text-sm">canzado de tener que entrar a tu Pc para ver un documento, ahora lo podras ver desde la palma de tu mano, no te parece increible? </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 fadeInLeft animated" data-ride="animated" data-animation="fadeInLeft" data-delay="600">
+                                                        <span class="fa-stack fa-2x pull-left m-r m-t-xs">
+                                                            <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                            <i class="fa fa-stack-1x fa-inverse">2</i>
+                                                        </span>
+                                                        <div class="clear">
+                                                            <h4>Todo desde un solo Lugar</h4>
+                                                            <p class="text-muted text-sm">canzado de tener que entrar a tu Pc para ver un documento, ahora lo podras ver desde la palma de tu mano, no te parece increible? </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 fadeInLeft animated" data-ride="animated" data-animation="fadeInLeft" data-delay="900">
+                                                        <span class="fa-stack fa-2x pull-left m-r m-t-xs">
+                                                            <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                            <i class="fa fa-stack-1x fa-inverse">3</i>
+                                                        </span>
+                                                        <div class="clear">
+                                                            <h4>Todo desde un solo Lugar</h4>
+                                                            <p class="text-muted text-sm">canzado de tener que entrar a tu Pc para ver un documento, ahora lo podras ver desde la palma de tu mano, no te parece increible? </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="odt" class="tab-pane panel-color tab-padi ">
+                                        <h2 class="ico-tipo-docu text-center"><i class="fa fa-file-o fa-3x"></i></h2> 
+                                        <h2 class="text-tipo-docu text-center ">
+                                            ODT</h2>
+                                            <ul class="list-group alt not-margin">
+                                            </ul><!-- ////////////////// END-CONTENT-DUCOMENT ////////////////-->
+                                                        </div><!-- ////////////////// FIN-TAB-ODS ////////////////-->
+                                    <div id="ods" class="tab-pane panel-color tab-padi ">
+                                        <h2 class="ico-tipo-docu text-center"><i class="fa fa-file-o fa-3x"></i></h2> 
+                                        <h2 class="text-tipo-docu text-center ">
+                                            ODS</h2>
+                                            <ul class="list-group alt not-margin">
+                                            </ul><!-- ////////////////// END-CONTENT-DUCOMENT ////////////////-->
+                                                        </div><!-- ////////////////// FIN-TAB-ODS ////////////////-->
 
-  <!--*Formulario de Suscripcion de Email a FoxXapp*-->
-  <div class="ui modal email foxxapp visible">
-    <div class="left">
-      <div class="ui icon input" style="display: block;">
-        <form action="javascript:void(0);">
-          <input id="email" type="text" placeholder="E-mail" value="" required>
-          <div class="ui corner label">
-            <i class="asterisk icon"></i>
-          </div>
-        </form>
-      </div>
-      <div class="actions">
-        <div data-l10n-id="button_cancel" class="ui cancel button" style=" float: left; ">Back</div>
-        <div data-l10n-id="form_send" class="ui blue submit button email" style=" float: right; ">Send</div>
-      </div> 
-    </div>
-  </div>
+                                    <div id="odp" class="tab-pane panel-color tab-padi ">
+                                        <h2 class="ico-tipo-docu text-center"><i class="fa fa-file-o fa-3x"></i></h2> 
+                                        <h2 class="text-tipo-docu text-center ">
+                                            ODS</h2>
+                                            <ul class="list-group alt not-margin">
+                                            </ul><!-- ////////////////// END-CONTENT-DUCOMENT ////////////////-->
+                                                        </div><!-- ////////////////// FIN-TAB-ODS ////////////////-->
 
-  <!--Seccion de ayuda, y Informacion de Desarrolladores-->
-  <div class="ui message help hidden">
-    <div data-l10n-id="text_questions" class="header">
-    <a class="item">
-      <i class="reply mail large icon help"></i>
-    </a> FAQ!
-    </div>
-    <p>
-      <div data-l10n-id="text_questions_content">
-      Have questions? Calm down, here we have our frequently asked questions by the community. If your question has not yet been elucidated, write us personally!: <div data-l10n-id="menu_contact" class="ui mini button contact"><i class="mail medium icon"></i> Contact</div>
-      </div>
-    </p>
-    <div class="ui fluid accordion" style="text-align:center;">
-      <div data-l10n-id="text_questions_1" class="title">
-        <i class="dropdown icon"></i>¿What's WebOffice?</div>
-      <div class="content">
-        <p data-l10n-id="text_questions_content_1">It is a Firefox OS application that lets you read any file on OpenDocumentFormat (ODF) format stored in the SD memory your device. OpenDocument is an open standard format for storing office documents such as spreadsheets, text, graphics and presentations file.</p>
-      </div>
-      <div data-l10n-id="text_questions_2" class="title">
-        <i class="dropdown icon"></i>¿What kind of formats I can read?</div>
-      <div class="content">
-        <p data-l10n-id="text_questions_content_2">Supported Documents are those with extensions, .Odt for text documents, .Ods for spreadsheets and .Odp for presentations</p>
-      </div>
-      <div data-l10n-id="text_questions_3" class="title">
-        <i class="dropdown icon"></i>¿How I can convert Microsoft Office documents in OpenDocument?</div>
-      <div class="content">
-        <p data-l10n-id="text_questions_content_3">The application of Microsoft Office, has a conversion system and saved to convert any document either word, power point and excel in OpenDocument, soon in future updates will add a system for converting documents directly from WebOffice.</p>
-      </div>
-      <div data-l10n-id="text_questions_4" class="title">
-        <i class="dropdown icon"></i>¿The documents do not look like Microsoft Office?</div>
-      <div class="content">
-        <p data-l10n-id="text_questions_content_4">There are some features of Microsoft Office, OpenDocument not supported therefore some things are not displayed correctly, for explanation see compatibilities: <a class="externa_url" url="http://office.microsoft.com/es-es/excel-help/compatibilidad-con-el-formato-opendocument-en-microsoft-office-2010-HA101878944.aspx" href="#">Microsoft.com</a></p>
-      </div>
-      <div data-l10n-id="text_questions_5" class="title">
-        <i class="dropdown icon"></i>¿What's FoxXapp?
-      </div>
-      <div class="content">
-        <p data-l10n-id="text_questions_content_5">FoxXapp is a startup (company startup and growth stages). Currently our website is under construction but already offer mobile web applications as you are using. We can not give many details about its features and offer applications for Firefox OS, but if you subscribe, by clicking on our logo, you can receive our updates to keep you abreast of any updates.</p>
-      </div>
-    </div>
-    <div style="text-align:center;">
-      <h3 data-l10n-id="text_colb">Contributors:</h3>
-      <p data-l10n-id="text_colb_1">
-        WebOffice Version 1.2, Powered by FoxXapp.Com in Collaboration with:
-        <p><small data-l10n-id="text_colb_2"><b>Keryc Diaz</b>: Applications Developer, CEO of FoxXapp.</small></p>
-        <p><small data-l10n-id="text_colb_3"><b>Richard Barrios</b>: Organizing Project, Co-Founder of Foxxapp.</small></p>
-        <p><small data-l10n-id="text_colb_4"><b>Roberto Casas</b>: Partner in Translation, editor of MundoFirefoxOs.</small></p>
-        <p><small data-l10n-id="text_colb_5"><b>David Rios</b>: Logos contributor to the Applications.</small></p>
-        <p><small data-l10n-id="text_colb_6"><b>Robert Bierkamp</b>: Improvement design contributor, CEO of MundoFirefoxOs.</small></p>
-        <p><b><small data-l10n-id="text_colb_7">Construction Criticadores Community Os Firefox</small></b></p>
-      </p>
-    </div>
-  </div>
-</body>
+                                            <div id="docx" class="tab-pane panel-color">
+                                                <h2 class="ico-tipo-docu text-center"><i class="fa fa-file-o fa-3x"></i></h2> 
+                                        <h2 class="text-tipo-docu text-center ">
+                                            DOCX</h2>
+                                            <ul class="list-group alt not-margin">
+                                            </ul><!-- ////////////////// END-CONTENT-DUCOMENT ////////////////-->
+                                            </div>
+                                        <div id="pptx" class="tab-pane panel-color">
+                                            <h2 class="ico-tipo-docu text-center"><i class="fa fa-file-o fa-3x"></i></h2> 
+                                        <h2 class="text-tipo-docu text-center ">
+                                            PPTX</h2>
+                                            <ul class="list-group alt not-margin">
+                                            </ul><!-- ////////////////// END-CONTENT-DUCOMENT ////////////////-->
+                                        </div>
+                                        <div id="xlsx" class="tab-pane panel-color">
+                                            <h2 class="ico-tipo-docu text-center"><i class="fa fa-file-o fa-3x"></i></h2> 
+                                        <h2 class="text-tipo-docu text-center ">
+                                            XLSX</h2>
+                                            <ul class="list-group alt not-margin">
+                                            </ul><!-- ////////////////// END-CONTENT-DUCOMENT ////////////////-->
+                                        </div>
 
-</html>
+                                                        <!-- ///// PROFILE/////-->
+
+                                                        <div id="profile" class="tab-pane">
+
+                                                            <div class="row" id="user-profile">
+                                                                <div class="trans">
+                                                                    <div class="col-lg-3 col-md-4 col-sm-4">
+                                                                        <div class="main-box clearfix">
+                                                                            <header class="main-box-header clearfix">
+                                                                                <h2>Scarlett Johansson</h2>
+                                                                            </header>
+                                                                            <div class="main-box-body clearfix">
+                                                                                <img src="http://centaurus.adbee.technology/img/samples/scarlet-159.png" alt="" class="profile-img img-responsive center-block">
+                                                                                <div class="profile-label">
+                                                                                    <span class="label label-danger">Admin</span>
+                                                                                </div>
+                                                                                <div class="profile-stars">
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star-o"></i>
+                                                                                    <span>Super User</span>
+                                                                                </div>
+                                                                                <div class="profile-since">
+                                                                                    Member since: Jan 2012
+                                                                                </div>
+
+                                                                                <div class="profile-details">
+                                                                                    <ul class="fa-ul">
+                                                                                        <li><i class="fa fa-file-text-o"></i> Documents: <span>20</span></li>
+                                                                                        <li ><i class="fa fa fa-fire"></i> Account type: <span class="label label-danger">PRO    </span></li>
+                                                                                        <li><i class="fa fa fa-cloud-upload"></i> Uploaded to FoxXappCloud: <span>5</span></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div class="profile-message-btn center-block text-center ">
+                                                                                    <a href="#" class="btn btn-primary bord-not">
+                                                                                        <i class="fa fa-cloud-upload"></i> FoxXappCloud
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-lg-9 col-md-8 col-sm-8">
+                                                                        <div class="main-box clearfix">
+                                                                            <div class="tabs-wrapper profile-tabs">
+                                                                                <ul class="nav nav-tabs tab-bg-dark-navy-blue">
+                                                                                    <li class="active"><a href="#recent-documents" data-toggle="tab"><i class="fa fa-files-o"></i> Recent Documents</a></li>
+                                                                                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-gears"></i> Settings</a></li>
+                                                                                </ul>
+                                                                                <div class="tab-content">
+                                                                                    <div class="tab-pane fade in active" id="recent-documents">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="timeline-messages">
+                                                                                                    <div >
+                                                                                                        <h3>  Recent Documents</h3>
+                                                                                                    </div>
+                                                                                                    <!-- Comment -->
+                                                                                                    <div class="msg-time-chat">
+                                                                                                        <div class="message-body msg-in">
+                                                                                                            <span class="arrow"></span>
+                                                                                                            <div class="text">
+                                                                                                                <div class="first">
+                                                                                                                    clases de frances.doc
+                                                                                                                </div>
+                                                                                                                <div class="second bg-blue ">
+                                                                                                                    Uploaded to FoxXappCloud
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- /comment -->
+
+                                                                                                    <!-- Comment -->
+                                                                                                    <div class="msg-time-chat">
+                                                                                                        <div class="message-body msg-in">
+                                                                                                            <span class="arrow"></span>
+                                                                                                            <div class="text">
+                                                                                                                <div class="first">
+                                                                                                                    sistema de velocidad 2.odt
+                                                                                                                </div>
+                                                                                                                <div class="second bg-blue">
+                                                                                                                    Uploaded to FoxXappCloud
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- /comment -->
+
+                                                                                                    <!-- Comment -->
+                                                                                                    <div class="msg-time-chat">
+                                                                                                        <div class="message-body msg-in">
+                                                                                                            <span class="arrow"></span>
+                                                                                                            <div class="text">
+                                                                                                                <div class="first">
+                                                                                                                    versiones de clases 3 parte.ppsx
+                                                                                                                </div>
+                                                                                                                <div class="second bg-red">
+                                                                                                                    File was deleted
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- /comment -->
+
+                                                                                                    <!-- Comment -->
+                                                                                                    <div class="msg-time-chat">
+                                                                                                        <div class="message-body msg-in">
+                                                                                                            <span class="arrow"></span>
+                                                                                                            <div class="text">
+                                                                                                                <div class="first">
+                                                                                                                    emprendimiento 3 pagina.ods
+                                                                                                                </div>
+                                                                                                                <div class="second bg-green">
+                                                                                                                    Shared File
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- /comment -->
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class="tab-pane fade" id="settings">
+
+                                                                                        <div class="position-center">
+                                                                                            <div class="prf-contacts sttng">
+                                                                                                <h2>  Personal Information</h2>
+                                                                                            </div>
+                                                                                            <form role="form" class="form-horizontal">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label"> Avatar</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="file" id="exampleInputFile" class="file-pos">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Company</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="c-name" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Lives In</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="lives-in" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Country</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="country" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Description</label>
+                                                                                                    <div class="col-lg-10">
+                                                                                                        <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                            <div class="prf-contacts sttng">
+                                                                                                <h2> socail networks</h2>
+                                                                                            </div>
+                                                                                            <form role="form" class="form-horizontal">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Facebook</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="fb-name" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Twitter</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="twitter" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Google plus</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="g-plus" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Flicr</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="flicr" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-lg-2 control-label">Youtube</label>
+                                                                                                    <div class="col-lg-6">
+                                                                                                        <input type="text" placeholder=" " id="youtube" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </form>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div><!-- ///// END-PROFILE/////-->
+                                                        <!-- ///// START-LECTOR/////-->
+                                                        <div id="lector" class="tab-pane panel-color">  
+
+                                                        
+
+                                                        </div>
+                                                        <!-- ///// END-LECTOR/////-->
+
+                                                        <!-- ///// STAR-HELP-WITH-WEBOFFICE/////-->
+                                                        <div id="help-for-weboffice" class="tab-pane panel-color">
+                                                            <div class="jumbotron m-bott-none">
+                                                                <h1 class="title-help-h1">Help with WebOffice </h1>
+                                                                <p class="jum-p-size">Have questions? Calm down, here we have our frequently asked questions by the community. If your question has not yet been elucidated, write us personally!</p>
+                                                                <p><a data-toggle="tab" href="#contact" class="btn btn-primary btn-lg bord-not">Contact</a></p>
+                                                            </div>
+
+                                                            <section class="panel bord-not">
+                                                                <header class="panel-heading tab-bg-dark-navy-blue bord-not">
+                                                                    <ul class="nav nav-tabs bord-not">
+                                                                        <li>
+                                                                            <a data-slide-to="0" data-target="#c-slide" data-toggle="tab" href="#0">Ask 1</a>
+                                                                        </li>
+                                                                        <li >
+                                                                            <a data-slide-to="1" data-target="#c-slide" data-toggle="tab" href="#1">Ask 2</a>
+                                                                        </li>
+                                                                        <li >
+                                                                            <a data-slide-to="2" data-target="#c-slide" data-toggle="tab" href="#2">Ask 3</a>
+                                                                        </li>
+                                                                        <li >
+                                                                            <a data-slide-to="3" data-target="#c-slide" data-toggle="tab" href="#3">Ask 4</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </header>
+                                                            </section>
+                                                            <section class="panel ">
+                                                                <div id="c-slide" class="carousel slide auto panel-body">
+                                                                    <ol class="carousel-indicators out">
+                                                                        <li class="active" data-slide-to="0" data-target="#c-slide"></li>
+                                                                        <li class="" data-slide-to="1" data-target="#c-slide"></li>
+                                                                        <li class="" data-slide-to="2" data-target="#c-slide"></li>
+                                                                        <li class="" data-slide-to="3" data-target="#c-slide"></li>
+                                                                    </ol>
+                                                                    <div class="carousel-inner">
+                                                                        <div id="0" class="item text-center">
+                                                                            <h3 class="ask-h3">¿What's WebOffice?</h3>
+                                                                            <p>It is a Firefox OS application that lets you read any file on OpenDocumentFormat (ODF) format stored in the SD memory your device. OpenDocument is an open standard format for storing office documents such as spreadsheets, text, graphics and presentations file.</p>
+                                                                            <small class="text-muted">Construction Criticadores Community Os Firefox</small>
+                                                                        </div>
+                                                                        <div id="1" class="item text-center active">
+                                                                            <h3 class="ask-h3">¿What kind of formats I can read?</h3>
+                                                                            <p>Supported Documents are those with extensions, .Odt for text documents, .Ods for spreadsheets and .Odp for presentations</p>
+                                                                            <small class="text-muted">Construction Criticadores Community Os Firefox</small>
+                                                                        </div>
+                                                                        <div id="2" class="item text-center">
+                                                                            <h3 class="ask-h3">¿How I can convert Microsoft Office documents in OpenDocument?</h3>
+                                                                            <p>The application of Microsoft Office, has a conversion system and saved to convert any document either word, power point and excel in OpenDocument, soon in future updates will add a system for converting documents directly from WebOffice.</p>
+                                                                            <small class="text-muted">Construction Criticadores Community Os Firefox</small>
+                                                                        </div>
+                                                                        <div id="3" class="item text-center">
+                                                                            <h3 class="ask-h3">¿The documents do not look like Microsoft Office?</h3>
+                                                                            <p>There are some features of Microsoft Office, OpenDocument not supported therefore some things are not displayed correctly, for explanation see compatibilities: Microsoft.com</p>
+                                                                            <small class="text-muted">Construction Criticadores Community Os Firefox</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </div><!-- ///// END-HELP-WITH-WEBOFFICE/////-->
+
+                                                        <!-- ///// STAR-DONATE/////-->
+                                                        <div id="donate" class="tab-pane panel-color">
+                                                            <div class="jumbotron m-bott-none">
+                                                                <h1 class="title-help-h1">Donate is to help! </h1>
+                                                                <p class="jum-p-size">Your donations are important to us, thanks!</p>
+                                                                <p><a data-toggle="tab" href="#contact" class="btn btn-primary btn-lg bord-not">Donate!</a></p>
+                                                            </div>
+                                                            <div class="bg-white-only">
+                                                                <div class="container">
+                                                                    <div class="m-t-xl m-b-xl">
+                                                                        <h3 class="font-thin text-center">Porque necesitamos Donaciones?</h3>
+                                                                    </div>
+                                                                    <div class="row m-b-xl">
+                                                                        <div class="col-sm-4 fadeInLeft animated" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
+                                                                            <span class="fa-stack fa-2x pull-left m-r m-t-xs">
+                                                                                <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                                                <i class="fa fa-stack-1x fa-inverse">1</i>
+                                                                            </span>
+                                                                            <div class="clear">
+                                                                                <h4>Todo desde un solo Lugar</h4>
+                                                                                <p class="text-muted text-sm">canzado de tener que entrar a tu Pc para ver un documento, ahora lo podras ver desde la palma de tu mano, no te parece increible? </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4 fadeInLeft animated" data-ride="animated" data-animation="fadeInLeft" data-delay="600">
+                                                                            <span class="fa-stack fa-2x pull-left m-r m-t-xs">
+                                                                                <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                                                <i class="fa fa-stack-1x fa-inverse">2</i>
+                                                                            </span>
+                                                                            <div class="clear">
+                                                                                <h4>Todo desde un solo Lugar</h4>
+                                                                                <p class="text-muted text-sm">canzado de tener que entrar a tu Pc para ver un documento, ahora lo podras ver desde la palma de tu mano, no te parece increible? </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4 fadeInLeft animated" data-ride="animated" data-animation="fadeInLeft" data-delay="900">
+                                                                            <span class="fa-stack fa-2x pull-left m-r m-t-xs">
+                                                                                <i class="fa fa-circle fa-stack-2x text-info"></i>
+                                                                                <i class="fa fa-stack-1x fa-inverse">3</i>
+                                                                            </span>
+                                                                            <div class="clear">
+                                                                                <h4>Todo desde un solo Lugar</h4>
+                                                                                <p class="text-muted text-sm">canzado de tener que entrar a tu Pc para ver un documento, ahora lo podras ver desde la palma de tu mano, no te parece increible? </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div><!-- ///// END-DONATE/////-->
+
+                                                        <!-- ///// STAR-CONTAC/////-->
+                                                        <div id="contact" class="tab-pane panel-color">
+                                                            <div class="jumbotron m-bott-none">
+                                                                <h1 class="title-help-h1">Connect with us! </h1>
+                                                                <p class="jum-p-size">We're here to help with any restlessness!</p>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="form">
+                                                                    <form class="cmxform form-horizontal " id="signupForm" method="get" action="">
+                                                                        <div class="form-group ">
+                                                                            <label for="firstname" class="control-label col-lg-3">Firstname (required)</label>
+                                                                            <div class="col-lg-6">
+                                                                                <input required class=" form-control" id="firstname" name="firstname" type="text" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <label for="lastname" class="control-label col-lg-3">Lastname (required)</label>
+                                                                            <div class="col-lg-6">
+                                                                                <input required class=" form-control" id="lastname" name="lastname" type="text" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <label for="email" class="control-label col-lg-3">Email (required)</label>
+                                                                            <div class="col-lg-6">
+                                                                                <input required class="form-control " id="email" name="email" type="email" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group ">
+                                                                            <label for="ccomment" class="control-label col-lg-3">Your Comment (required)</label>
+                                                                            <div class="col-lg-6">
+                                                                                <textarea required class="form-control " id="ccomment" name="comment" ></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div class="form-group">
+                                                                          <label for="agree" class="control-label col-lg-3 col-sm-3">Agree to Our Policy (required)</label>
+                                                                          <input  required type="checkbox" style="width: 20px"  id="agree" name="agree" />
+                                                                          <label for="newsletter" class="control-label col-lg-3 col-sm-3">Receive the Newsletter</label>
+                                                                          <input  type="checkbox" style="width: 20px" id="newsletter" name="newsletter" />
+                                                                      </div>
+                                                                  </div>
+
+                                                                  <div class="form-group text-center">
+                                                                    <div class="col-lg-offset-3 col-lg-6">
+                                                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>   
+                                                </div><!-- ///// END-CONTAC/////-->
+
+
+
+                                            </div><!-- ///////END-TAB-ALL //////-->
+                                        </section>
+                                    </div>
+                                </div><!-- ///// END-CONTENIDO-ROW/////-->
+                            </section><!-- FIN DE LA PAGINA-->
+                        </section>
+                        <div class="right-sidebar">
+                            <div class="search-row">
+                                <input type="text" placeholder="Search" class="form-control">
+                            </div>
+                            <div class="right-stat-bar">
+                                <ul class="right-side-accordion">
+                                    <li class="widget-collapsible ">
+                                        <a href="#" class="head widget-head purple-bg">
+                                            <span class="pull-left"><i class="fa fa-info-circle"></i>  Help with WebOffice</span>
+                                            <span class="pull-right widget-collapse"><i class="fa fa-arrow-circle-down"></i></span>
+                                        </a>
+                                        <ul class="widget-container m-bott wid-disp">
+                                            <li>
+                                                <div class="btn-group btn-group-justified ">
+                                                    <a class="btn btn-info bord-not remove-right-sidebar" data-toggle="tab" href="#help-for-weboffice" ><i class="fa fa-arrow-circle-down"></i> Help for App</a>
+                                                    <a class="btn btn-success bord-not remove-right-sidebar" data-toggle="tab" href="#contact"><i class="fa fa-arrow-circle-down"></i> Contact</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="widget-collapsible m-top">
+                                        <a href="#" class="head widget-head terques-bg">
+                                            <span class="pull-left"><i class="fa fa-money"></i> DONATE</span>
+                                            <span class="pull-right widget-collapse"><i class="fa fa-arrow-circle-down"></i></span>
+                                        </a>
+                                        <ul class="widget-container m-bott wid-disp ">
+                                            <li>
+                                                <div class="btn-group btn-group-justified ">
+                                                    <a data-toggle="tab" href="#donate" class="btn btn-danger bord-not remove-right-sidebar"><i class="fa fa-money"></i> Donate</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!--right sidebar end-->
+                        <!--right sidebar end-->
+                        <!-- Modal LOGIN BTN-->
+                        <div class="modal fade " id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content modal-trans">
+                                    <div class="center-modal">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <p><h2 class="text-center blanco ">Entra Ahora!</h2></p><br>
+                                        <div class="btn-group btn-group-justified">
+                                            <a class="btn btn-info google" href="#"><i class="fa fa-rocket"></i> Login FoxXapp</a>
+                                        </div>
+                                    </div>       
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal end-LOGIN BTN-->
+                        <!-- Modal REGISTRE BTN-->
+                        <div class="modal fade " id="registre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content modal-trans">
+                                    <div class="center-modal">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h2 class="text-center blanco ">Registrate Ahora!</h2>
+                                        <h5 class="text-center blanco linea"> y Disfruta de mucho mas </h5><br>
+
+                                        <div class="btn-group btn-group-justified">
+                                            <a class="btn btn-info google" href="#"><i class="fa fa-rocket"></i> Registre FoxXapp</a>
+                                        </div>
+                                    </div>       
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal -end-REGISTRE BTN -->
+                        <!-- Modal url-externa-->
+                        <div class="modal fade" id="url-externa" tabindex="-1" role="dialog" aria-labelledby="url-externa" aria-hidden="true">
+                            <div class="modal-dialog" style="height: 100%;">
+                                <div class="modal-content bord-not full-url" style="height: 100%;">
+                                    <header class="panel-heading">
+                                        <span id="url_name"></span>
+                                        <span class="tools pull-right">
+                                            <a class="fa fa-refresh fa-spin"></a>
+                                            <a href="javascript:;" data-dismiss="modal" class="fa fa-times"></a>
+                                        </span>
+                                    </header>
+                                    <div class="modal-body" style="height: 100%; padding: 0px;"></div>
+                             </div>
+                         </div>
+                     </div>
+                     <!-- modal -end-url-externa -->
+
+                 </section>
+                 <!-- Placed js at the end of the document so the pages load faster -->
+                 <!--Core js-->
+                 <script src="main-app/js/jquery.js"></script>
+                 <script src="main-app/bs3/js/bootstrap.min.js"></script>
+                 <script src="main-app/js/jquery.scrollTo.min.js"></script>
+                 <script src="main-app/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+                 <script src="main-app/js/jquery.nicescroll.js"></script>
+                 <!--MAIN APP-->
+                 <script src="main-app/js/scripts.js"></script>
+                 
+                 <script src="./js/l10n.js"></script>
+                 <!--<script src="./js/files_db.js"></script>
+                 <script src="./js/upload_file.js"></script>-->
+                 <script src="./js/list_document.js"></script>
+             </body>
+             </html>

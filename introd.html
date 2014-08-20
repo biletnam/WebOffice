@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="JDLA">
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <title>WebOffice - FoxXapp</title>
+
+    <!--CSS -->
+    <link href="main-app/bs3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="main-app/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
+    <link href="main-app/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="main-app/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- MAIN APP -->
+    <link href="main-app/css/style.css" rel="stylesheet">
+    <link href="main-app/css/font.css" rel="stylesheet">
+    <link href="main-app/css/style-responsive.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="main-app/css/jquery.steps.css">
+
+</head>
+
+<body>
+    <section >
+        <section>
+            <section class="wrapper wizard-wapper">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="wizard">
+                           <!-- 2 -->
+                           <h2></h2><!-- NO BORRAR -->
+                           <section>
+                              <div class="jumbotron m-bott-none trans">
+                                <h1 class="title-help-h1">Bienvenido a <b class="wffce">WebOffice</b> </h1>
+                                <p class="jum-p-size">Estamos por comenzar </p>
+                                
+                            </div>
+                        </section>
+                        
+                        <!--2  -->
+                        <h2></h2><!-- NO BORRAR -->
+                        <section>
+                           contenido 
+                       </section>
+                       <!-- 3 -->
+                       
+                       <h2></h2><!-- NO BORRAR -->
+                       <section>
+                        
+                        contenido
+                        
+                    </section>
+                    
+                    
+                    <!-- 4 -->
+                    
+<!-- PARA SEGUIR COLOCANDO PASOS SOLO AÑADIR 
+
+                                     <h2></h2> no borrar h2
+                                    <section>
+                                        
+                                        contenido
+                                        
+                                    </section>    -->
+                                    
+                                    
+                                    
+                                    
+                                    <h2></h2><!-- NO BORRAR -->
+                                    
+                                    <section>
+                                        <p>Congratulations This is the Final Step</p>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <!-- Placed js at the end of the document so the pages load faster -->
+            <!--Core js-->
+            <script src="main-app/js/jquery.js"></script>
+            <script src="main-app/bs3/js/bootstrap.min.js"></script>
+            <script src="main-app/js/jquery.scrollTo.min.js"></script>
+            <script src="main-app/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+            <script src="main-app/js/jquery.nicescroll.js"></script>
+            <!--MAIN APP-->
+            <script src="main-app/js/jquery-steps/jquery.steps.js"></script>
+
+            <script>
+            $(function ()
+            {
+                $("#wizard").steps({
+                    headerTag: "h2",
+                    bodyTag: "section",
+                    transitionEffect: "slideLeft"
+                });
+
+                $("#wizard-vertical").steps({
+                    headerTag: "h2",
+                    bodyTag: "section",
+                    transitionEffect: "slideLeft",
+                    stepsOrientation: "vertical"
+                });
+            });
+
+
+            </script>
+
+        </body>
+        </html>

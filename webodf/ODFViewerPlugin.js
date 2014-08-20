@@ -46,7 +46,7 @@ function ODFViewerPlugin() {
             pluginCSS;
 
         lib.async = false;
-        lib.src = './webodf.js';
+        lib.src = './webodf-debug.js';
         lib.type = 'text/javascript';
         lib.onload = function () {
             runtime.loadClass('gui.HyperlinkClickHandler');
@@ -122,11 +122,11 @@ function ODFViewerPlugin() {
                     shadowCursor = new gui.ShadowCursor(odtDocument);
                     sessionController = new gui.SessionController(session, localMemberId, shadowCursor, {});
                     caretManager = new gui.CaretManager(sessionController);
-                    selectionViewManager = new gui.SelectionViewManager(gui.SvgSelectionView);
+                    /*selectionViewManager = new gui.SelectionViewManager(gui.SvgSelectionView);
                     sessionView = new gui.SessionView({
                         caretAvatarsInitiallyVisible: false
                     }, localMemberId, session, caretManager, selectionViewManager);
-                    selectionViewManager.registerCursor(shadowCursor);
+                    selectionViewManager.registerCursor(shadowCursor);*/
 
                     var op = new ops.OpAddMember();
                     op.init({

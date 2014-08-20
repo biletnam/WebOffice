@@ -72,6 +72,13 @@ function loadDocument(documentUrl) {
                     Plugin = ODFViewerPlugin;
                 });
                 break;
+            case 'docx':
+            case 'pptx':
+            case 'xlsx':
+                loadPlugin('./OfficeViewerPlugin', function () {
+                    Plugin = ODFViewerPlugin;
+                });
+                break;
             default:
                 extension = documentUrl.split(':')[0]
                 if (extension == '#blob' || extension == '#data'){
