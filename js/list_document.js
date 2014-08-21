@@ -100,6 +100,7 @@ function load(){
         ultimo = fileName.split("/").pop();
         pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
         formato = fileName.split(".")[1]
+
         var iframe = '<IFRAME id="iframe" SRC="./webodf/index.html#'+fileName+'" WIDTH=99.9% HEIGHT=100% FRAMEBORDER=1 scrolling="no"></IFRAME>';
         $('#url-externa').modal('show')
         $('.modal-body').html(iframe);

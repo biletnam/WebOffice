@@ -240,7 +240,6 @@ function Viewer(viewerPlugin) {
         delayedRefresh(300);
     }
 
-    
     this.initialize = function () {
         var location = String(document.location),
             pos = location.indexOf('#'),
@@ -252,10 +251,13 @@ function Viewer(viewerPlugin) {
             return;
         }
         location = decodeURIComponent(location)
-        
+        var pattern = /^((http|https|ftp):\/\/)/;
+
         try {
-            var storage = navigator.getDeviceStorage("sdcard");
-            var pdf_file = storage.get(location);
+            if(!pattern.test(location)) {
+                var storage = navigator.getDeviceStorage("sdcard");
+                var pdf_file = storage.get(location);
+            }
             pdf_file.onerror = function() {
                 console.error("Error in: ", pdf_file.error.name);
             };

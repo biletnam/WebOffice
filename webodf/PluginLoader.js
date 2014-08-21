@@ -62,7 +62,6 @@ function loadDocument(documentUrl) {
 
     if (documentUrl) {
         var extension = documentUrl.split('.').pop();
-
         switch (extension) {
             case 'odt':
             case 'odp':

@@ -1,11 +1,9 @@
 var WebOffice = angular.module('WebOffice'); 
 
 WebOffice.factory('Auth', function ($http, $rootScope, Storage) {
-		var auth = Storage.get('accessToken');
-
     var getAuthToken = function() {
         try {
-            return auth;
+            return Storage.get('accessToken');
         } catch (e) {}
     };
 
@@ -25,11 +23,11 @@ WebOffice.factory('Auth', function ($http, $rootScope, Storage) {
             $rootScope.user = data.results[0];
         })
         .error(function(data, status) {
+            $rootScope.user = '';
             if (status == 0) {
                 console.log('No se pudo llegar a API')
             }
             console.log('No existe un access_token')
-            $rootScope.user = '';
         });
     }
 
@@ -60,6 +58,8 @@ WebOffice.factory('Auth', function ($http, $rootScope, Storage) {
                 authenticate(data.access_token);
                 $('#url-externa').modal('hide');
                 $('#profile').tab('show');
+                $('a[href="#profile"]').show();
+                $('a[href="#profile"]').tab('show');
 
             }).error(function(data, status) {
                 if (status == 0) {
@@ -70,7 +70,8 @@ WebOffice.factory('Auth', function ($http, $rootScope, Storage) {
             });
         },
         logout: function() {
-        	Storage.remove('accessToken')
+        	Storage.remove('accessToken');
+            authenticate();
         },
     }
 });

@@ -110,8 +110,9 @@
                                 <span class="name">
                                     Welcome {{ user.username }} 
                                 </span>
-                                <div class="btn-group profile-btns-group remove-left-sidebar" ng-if="user.username">
-                                    <a data-toggle="tab" href="#profile" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+                                <div class="btn-group profile-btns-group remove-left-sidebar">
+                                    <a style="display:none;" ng-if="!user.username" data-toggle="tab" href="#profile" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+                                    <a ng-if="user.username" data-toggle="tab" href="#profile" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
                                     <a data-toggle="tab" href="#settings" class="btn btn-profie-sidebar btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
                                     <a href="#" class="btn btn-profie-sidebar btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
                                 </div>
@@ -277,7 +278,7 @@
                                                                     <div class="col-lg-3 col-md-4 col-sm-4">
                                                                         <div class="main-box clearfix">
                                                                             <header class="main-box-header clearfix">
-                                                                                <h2>Scarlett Johansson</h2>
+                                                                                <h2>{{ user.username }}</h2>
                                                                             </header>
                                                                             <div class="main-box-body clearfix">
                                                                                 <img src="http://centaurus.adbee.technology/img/samples/scarlet-159.png" alt="" class="profile-img img-responsive center-block">
@@ -763,6 +764,7 @@
                  <script src="./js/list_document.js"></script>
 
                  <!--Logging-->
+                 <script src="js/querystring.js"></script>
                  <script src="src/app.js"></script>
                  <script src="src/Auth.js"></script>
                  <script src="js/oauth_window.js"></script>

@@ -2,43 +2,35 @@ var WebOffice = angular.module('WebOffice', []);
 
 WebOffice.controller('MainController', ['$location', '$rootScope', '$scope', 'Auth', 
 	function($location, $rootScope, $scope, Auth){
+
+			//Si existe un codigo de autorizacion, enviar para obtener el access_token
+      var code = QueryString.stringify($location.$$absUrl,'code')
+      if(code != null && code != '')
+				Auth.getAccessToken(code);
 	    
-	    var regexS = "[\\?&]"+'code'+"=([^&#]*)";
-			var regex = new RegExp (regexS);
-			var tmpURL = $location.$$absUrl;
-			var results = regex.exec( tmpURL );
-			
-			if( results != null && results[1] != '')
-				Auth.getAccessToken(results[1]);
-	    $scope.authorized = function() {
-        
+      //Si se hace click en ng-click="authorized()" entrar aqui.
+      $scope.authorized = function() {   
         //Cerrar modal login y abrir caja de url externa
 	      $('#login').modal('hide');
         $('#url-externa').modal('show');
         
-        var paramObj = {
-		      client_id: $rootScope.CONFIG.client_id,
-		      redirect_uri: $rootScope.CONFIG.redirect_uri,
-		      response_type: $rootScope.CONFIG.response_type
-		    };
-		    var location = $rootScope.CONFIG.auth_url + '?'+QueryString.stringify(paramObj)+'';
+        //Crear iframe dinamico y obtener completado o error de carga 
 	    	var elementContainer = document.getElementById('url-externa');
 	    	var oauth = new OAuthWindow(
-         elementContainer,
-         $rootScope.CONFIG.auth_url,
-         location,
-         {
-           response_type: $rootScope.CONFIG.response_type,
-           client_id: $rootScope.CONFIG.client_id,
-           redirect_uri: $rootScope.CONFIG.redirect_uri,
-           scope: '',
-           state: '',
-           access_type: '',
-           approval_prompt: ''
-         }
-       );
+          elementContainer,
+          $rootScope.CONFIG.auth_url,
+          {
+            client_id: $rootScope.CONFIG.client_id,
+            redirect_uri: $rootScope.CONFIG.redirect_uri,
+            response_type: $rootScope.CONFIG.response_type,
+            scope: '',
+            state: '',
+            access_type: '',
+            approval_prompt: ''
+          }
+        );
 	    	oauth.open();
-	     oauth.oncomplete = function(params) {
+	      oauth.oncomplete = function(params) {
           if ('error' in params) {
 	          return oauth.cancel();
 	        }
@@ -48,16 +40,15 @@ WebOffice.controller('MainController', ['$location', '$rootScope', '$scope', 'Au
 	        }
 
 	        Auth.getAccessToken(params.code);
-       };
+        };
    
-       oauth.onabort = function() {
-         return oauth.cancel();
-       };
+        oauth.onabort = function() {
+          return oauth.cancel();
+        };
 	    };
 
 	    $scope.logout = function() {
 	      Auth.logout();
-        Auth.authenticate();
 	    };
 	}
 ]);
