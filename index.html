@@ -21,7 +21,7 @@
     <link rel="resource" type="application/l10n" href="./locale/locale.properties"/>
 
 </head>
-<body>
+<body ng-controller='MainController'>
     <section id="container">
         <!--header start-->
         <header class="header fixed-top clearfix mobile-header">
@@ -29,7 +29,7 @@
             <div class="brand">
 
                     <a class="logo">
-                    <h3 class="logo-text"> Web <i id="loading" class="fa fa-refresh"></i>ffice<h3>
+                    <h3 class="logo-text"> Web <i ng-click="reload()" id="loading" class="fa fa-refresh"></i>ffice<h3>
                     </a>
                     <div href="#" class="sidebar-toggle-box">
                         <div class="fa fa-bars"></div>
@@ -48,37 +48,37 @@
                     <ul class="nav top-menu">
                         <!-- ODS -->
                         <li class="dropdown"><span class="badge bg-success badge-icon bord-not">ODS</span>
-                            <a class="li-badge bord-not" data-toggle="tab" href="#ods">
+                            <a class="li-badge bord-not" data-toggle="tab" href="#ods" ng-click="open_file('ods')">
                                 <i class="fa fa-file-text-o"></i>
                             </a>
                         </li>
                         <!-- ODP-->
                         <li > <span class="badge bg-important badge-icon bord-not">ODP</span>
-                            <a class="li-badge bord-not" data-toggle="tab" href="#odp">
+                            <a class="li-badge bord-not" data-toggle="tab" href="#odp" ng-click="open_file('odp')">
                                 <i class="fa fa-file-text-o"></i>
                             </a>
                         </li>
                         <!-- ODT-->
                         <li > <span class="badge bg-warning badge-icon bord-not">ODT</span>
-                            <a class="li-badge bord-not" data-toggle="tab" href="#odt">
+                            <a class="li-badge bord-not" data-toggle="tab" href="#odt" ng-click="open_file('odt')">
                                 <i class="fa fa-file-text-o"></i>
                             </a>
                         </li>
                         <!-- DOC-->
                         <li > <span class="badge bg-info badge-icon bord-not">DOCX</span>
-                            <a  class="li-badge bord-not" data-toggle="tab" href="#docx">
+                            <a  class="li-badge bord-not" data-toggle="tab" href="#docx" ng-click="open_file('docx')">
                                 <i class="fa fa-file-word-o"></i> 
                             </a>
                         </li>
                         <!-- PPSX-->
                         <li > <span class="badge bg-danger ppsx">PPTX</span>
-                            <a class="li-badge bord-not" data-toggle="tab" href="#pptx">
+                            <a class="li-badge bord-not" data-toggle="tab" href="#pptx" ng-click="open_file('pptx')">
                                 <i class="fa fa-file-powerpoint-o"></i>
                             </a>
                         </li>
                         <!-- DOC-->
                         <li > <span class="badge bg-primary  exel">XLSX</span>
-                            <a  class="li-badge bord-not" data-toggle="tab" href="#xlsx">
+                            <a  class="li-badge bord-not" data-toggle="tab" href="#xlsx" ng-click="open_file('xlsx')">
                                 <i class="fa fa-file-excel-o"></i> 
                             </a>
                         </li>
@@ -122,7 +122,7 @@
                             <a class="btn btn-warning bord-not"  data-toggle="modal" href="#registre"><i class="fa fa-caret-square-o-right"></i> Registrarme</a>
                             <a class="btn btn-danger bord-not" data-toggle="modal" href="#login"><i class="fa fa-sign-in"></i> Login</a>
                         </div>
-                        <div class="btn-group btn-group-justified remove-left-sidebar" ng-if="user.username" ng-controller='MainController'>
+                        <div class="btn-group btn-group-justified remove-left-sidebar" ng-if="user.username">
                             <a class="btn btn-danger bord-not" data-toggle="modal" ng-click="logout()"><i class="fa fa-sign-in"></i> Logout</a>
                         </div>
                         <li class="remove-left-sidebar" data-toggle="tab" href="#home">
@@ -696,7 +696,7 @@
                         <!--right sidebar end-->
                         <!--right sidebar end-->
                         <!-- Modal LOGIN BTN-->
-                        <div class="modal fade " id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller='MainController'>
+                        <div class="modal fade " id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content modal-trans">
                                     <div class="center-modal">
@@ -757,16 +757,13 @@
                  <!--MAIN APP-->
                  <script src="main-app/js/scripts.js"></script>
                  
-                 <!--manejo de documentos-->
-                 <script src="./js/l10n.js"></script>
-                 <!--<script src="./js/files_db.js"></script>
-                 <script src="./js/upload_file.js"></script>-->
-                 <script src="./js/list_document.js"></script>
-
                  <!--Logging-->
                  <script src="js/querystring.js"></script>
                  <script src="src/app.js"></script>
                  <script src="src/Auth.js"></script>
                  <script src="js/oauth_window.js"></script>
+
+                 <!--listar documentos-->
+                 <script src="./js/list_document.js"></script>
              </body>
              </html>

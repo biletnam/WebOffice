@@ -1,7 +1,7 @@
 var WebOffice = angular.module('WebOffice', []); 
 
-WebOffice.controller('MainController', ['$location', '$rootScope', '$scope', 'Auth', 
-	function($location, $rootScope, $scope, Auth){
+WebOffice.controller('MainController', ['$location', '$rootScope', '$scope', 'Auth', 'Document', 
+	function($location, $rootScope, $scope, Auth, Document){
 
 			//Si existe un codigo de autorizacion, enviar para obtener el access_token
       var code = QueryString.stringify($location.$$absUrl,'code')
@@ -46,14 +46,20 @@ WebOffice.controller('MainController', ['$location', '$rootScope', '$scope', 'Au
           return oauth.cancel();
         };
 	    };
-
+      $scope.open_file = function(type) {
+        $('#loading').attr('type',type);
+        Document.list(type)
+      };
+      $scope.reload = function() {
+        Document.list($('#loading').attr('type'))
+      };
 	    $scope.logout = function() {
 	      Auth.logout();
 	    };
 	}
 ]);
 
-WebOffice.run(function($rootScope, Auth) {
+WebOffice.run(function($rootScope, Auth, Document) {
   $rootScope.CONFIG = {
     apiUrl: 'http://localhost:8000',
     auth_url: 'http://localhost:8000/oauth2/authorize/',           // required
@@ -66,4 +72,5 @@ WebOffice.run(function($rootScope, Auth) {
     other_params: {}        // optional params object for scope, state, display...
   };
   Auth.authenticate()
+  Document.list('all')
 });

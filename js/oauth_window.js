@@ -30,7 +30,7 @@ OAuthWindow = (function() {
     },
 
     selectors: {
-      browserTitle: '.url_name"',
+      browserTitle: '.url_name',
       browerCancelButton: '.fa.fa-times.cancel',
       browserContainer: '.modal-body'
     },
