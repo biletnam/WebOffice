@@ -1,7 +1,44 @@
 var WebOffice = angular.module('WebOffice'); 
 
 WebOffice.factory('Document', function ($http, $rootScope, Storage) {
-    var get_file = function(file,type) {
+    var getAuthToken = function() {
+      try {
+          return Storage.get('accessToken');
+      } catch (e) {}
+    };    
+      var download_file = function(self,url,title) {
+          window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+
+          function onError(e) {
+            console.log('Error', e);
+          }
+
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);
+          xhr.responseType = 'blob';
+
+          xhr.onload = function(e) {
+            var sdcard = navigator.getDeviceStorage("sdcard");
+
+            var request = sdcard.addNamed(xhr.response, title);
+
+            request.onsuccess = function () {
+              var name = this.result.name;
+              console.log('El archivo "' + title + '" se escribió correctamente en el área de almacenamiento sdcard');
+              $(self).removeClass('btn-default');
+              $(self).addClass('btn-info');
+            }
+
+            // Un error suele producirse si un archivo con el mismo nombre ya existe
+            request.onerror = function () {
+              console.warn('No se puede escribir el archivo: ' + this.error);
+            }
+          };
+
+          xhr.send();
+        };
+
+    var add_file = function(file,type,upload,download) {
         $('#'+type+' ul').append(''+
           '<li class="list-group-item">'+
             '<div class="media">'+
@@ -10,8 +47,8 @@ WebOffice.factory('Document', function ($http, $rootScope, Storage) {
               '</div>'+
               '<div class="pull-right text-success m-t-sm">'+
                 '<div class="btn-group">'+
-                  '<a class="btn btn-default btn-xs" ><i class="fa fa-cloud-upload"></i></a>'+
-                  '<a class="btn btn-info btn-xs"><i class="fa fa-cloud-download"></i></a>'+
+                  '<a class="btn '+upload+' btn-xs" ><i class="fa fa-cloud-upload"></i></a>'+
+                  '<a class="btn '+download+' btn-xs download_file"><i class="fa fa-cloud-download"></i></a>'+
                 '</div>'+
               '</div>'+
               '<div class="media-body">'+
@@ -20,13 +57,13 @@ WebOffice.factory('Document', function ($http, $rootScope, Storage) {
               '</div>'+
             '</div>'+
           '</li>'
-        );      
-    };
-
-    var getAuthToken = function() {
-        try {
-            return Storage.get('accessToken');
-        } catch (e) {}
+        );
+        $('.download_file').click(function(){
+          if ($(this).attr('class') != 'btn btn-info btn-xs download_file')
+            ultimo = file.archive.split("/").pop();
+            pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
+            download_file(this,file.archive,pdf);
+        });
     };
 
     var list = function(accessToken,type) {
@@ -46,9 +83,12 @@ WebOffice.factory('Document', function ($http, $rootScope, Storage) {
             $rootScope.files = data.results;
             for (file in $rootScope.files){
               ultimo = $rootScope.files[file].archive.split("/").pop();
+              pdf = ultimo.charAt(0).toUpperCase() + ultimo.slice(1);
               unit_type = ultimo.split(".")[1]
+              $rootScope.files[file].title =  pdf;
               $rootScope.files[file].archive = $rootScope.CONFIG.apiUrl + '/' + $rootScope.files[file].archive;
-              get_file($rootScope.files[file],unit_type);
+              add_file($rootScope.files[file],unit_type,'btn-info','btn-default');
+              
             }
             
         })
@@ -60,19 +100,18 @@ WebOffice.factory('Document', function ($http, $rootScope, Storage) {
             console.log('No existe un access_token')
         });
 
-        $('#loading').addClass('fa-spin'); 
-        $('#'+type+' ul').html('');
-        $('#'+type+' ul').html(''+
-          '<li id="Message" class="list-group-item">'+
-            '<div class="media">'+
-              '<div class="media-body" style="text-align:center;">'+
-                '<div><a href="#">Looking for results ...</a></div>'+
-              '</div>'+
-            '</div>'+
-          '</li>'
-        );
-
         if (typeof(type) != 'undefined' && type != '') {
+          $('#loading').addClass('fa-spin'); 
+          $('#'+type+' ul').html('');
+          $('#'+type+' ul').html(''+
+            '<li id="Message" class="list-group-item">'+
+              '<div class="media">'+
+                '<div class="media-body" style="text-align:center;">'+
+                  '<div><a href="#">Looking for results ...</a></div>'+
+                '</div>'+
+              '</div>'+
+            '</li>'
+          );
           storage = navigator.getDeviceStorage("sdcard");
           var all_files = storage.enumerate();
           all_files.onsuccess = function() {
@@ -86,7 +125,17 @@ WebOffice.factory('Document', function ($http, $rootScope, Storage) {
                   title: pdf,
                   archive: file.name,
                 }
-                get_file(file,type);      
+                var title = false;
+                $('#'+type+' ul li').each(function(index) {
+                  if (file.title == $(this).find('.media-body div a').html()){
+                    $(this).find('.download_file').removeClass('btn-default');
+                    $(this).find('.download_file').addClass('btn-info')
+                    title = true;
+                  }
+                });
+                console.log(title)
+                if (title == false)
+                  add_file(file,type,'btn-default','btn-info');      
               }
 
               if (!this.done) {
